@@ -3,82 +3,80 @@
 <head>
     <meta charset="utf-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <title>InfyOm Laravel Generator</title>
+    <title>Password Recovery - Hello Phones</title>
 
     <!-- Tell the browser to be responsive to screen width -->
     <meta content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no" name="viewport">
 
-    <!-- Bootstrap 3.3.6 -->
-    <link rel="stylesheet" href="http://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/css/bootstrap.min.css">
+   <!-- FAVICONS -->
+   <link rel="icon" type="image/x-icon" href="../client/images/icons/favicon.png">
+		<link rel="apple-touch-icon" href="../client/images/icons/apple-touch-icon.png">
 
-    <!-- Font Awesome -->
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.5.0/css/font-awesome.min.css">
-
-    <!-- Ionicons -->
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/ionicons/2.0.1/css/ionicons.min.css">
-
-    <!-- Theme style -->
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/admin-lte/2.3.3/css/AdminLTE.min.css">
-
-    <!-- iCheck -->
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/admin-lte/2.3.3/css/skins/_all-skins.min.css">
-
-    <!-- HTML5 Shim and Respond.js IE8 support of HTML5 elements and media queries -->
-    <!-- WARNING: Respond.js doesn't work if you view the page via file:// -->
-    <!--[if lt IE 9]>
-    <script src="https://oss.maxcdn.com/html5shiv/3.7.3/html5shiv.min.js"></script>
-    <script src="https://oss.maxcdn.com/respond/1.4.2/respond.min.js"></script>
-    <![endif]-->
+		<!-- CSS
+		================================= -->
+		<link rel="stylesheet" type="text/css" href="../client/css/bootstrap.css" />
+		<link rel="stylesheet" type="text/css" href="../client/css/fontawesome.css" />
+		<link rel="stylesheet" type="text/css" href="../client/css/components.css"  />
+        <link rel="stylesheet" type="text/css" href="../client/css/style.css"  />
 
 </head>
-<body class="hold-transition login-page">
-<div class="login-box">
-    <div class="login-logo">
-        <a href="{{ url('/home') }}"><b>InfyOm </b>Generator</a>
-    </div>
+<body>
 
-    <!-- /.login-logo -->
-    <div class="login-box-body">
-        <p class="login-box-msg">Enter Email to reset password</p>
+<div class="container dsh-login">
+	        <div class="row">
+	            <div class="col-xs-12">
+	                <div class="login-panel panel panel-default">
+	                    <div class="panel-heading mb-15 py">
+	                    	<h3 class="mb-0"><a href="{{ url('/home') }}"><b>  PASSWORD RECOVERY </b></a></h3>
+                        </div>
+                        <p class="alert-info text-center">Enter Email to reset password</p>
+	                    <div class="panel-body">
+                            <div class="clearfix"></div>
+                            @if (session('status'))
+                                <div class="alert alert-success">
+                                    {{ session('status') }}
+                                </div>
+                            @endif
 
-        @if (session('status'))
-            <div class="alert alert-success">
-                {{ session('status') }}
-            </div>
-        @endif
-
-        <form method="post" action="{{ url('/password/email') }}">
-            {!! csrf_field() !!}
-
-            <div class="form-group has-feedback {{ $errors->has('email') ? ' has-error' : '' }}">
-                <input type="email" class="form-control" name="email" value="{{ old('email') }}" placeholder="Email">
-                <span class="glyphicon glyphicon-envelope form-control-feedback"></span>
-                @if ($errors->has('email'))
-                    <span class="help-block">
-                    <strong>{{ $errors->first('email') }}</strong>
-                </span>
-                @endif
-            </div>
-
-            <div class="row">
-                <div class="col-md-12">
-                    <button type="submit" class="btn btn-primary pull-right">
-                        <i class="fa fa-btn fa-envelope"></i> Send Password Reset Link
-                    </button>
-                </div>
-            </div>
-
-        </form>
-
-    </div>
-    <!-- /.login-box-body -->
-</div>
+                            <form class="form-horizontal" method="post" action="{{ url('/password/email') }}" id="login-form">
+                            {!! csrf_field() !!}
+	                    		<div class="form-group {{ $errors->has('email') ? ' has-error' : '' }}">
+		                            <div class="col-xs-12">
+		                                <div class="input-group input-icon">
+		                                    <span class="input-group-addon"><i class="fa fa-user"></i></span>
+                                            <input type="email" class="form-control" name="email" value="{{ old('email') }}" placeholder="Email">
+                                        </div>
+                                        @if ($errors->has('email'))
+                                            <span class="help-block">
+                                            <strong>{{ $errors->first('email') }}</strong>
+                                        </span>
+                                        @endif
+		                            </div>
+		                            <div class="clearfix"></div>
+		                        </div>
+	                    		
+		                       
+		                        <div class="form-group">
+		                        	<div class="col-xs-12">
+                                    <button type="submit" class="btn btn-success btn-md btn-block"> Confirm</button>
+		                        	</div>
+		                        </div> 
+		                    </form>
+	                    </div>
+	                </div>
+	            </div>
+	        </div>
+        </div>
+        
 <!-- /.login-box -->
 
-<script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.0/jquery.min.js"></script>
-<script src="http://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/js/bootstrap.min.js"></script>
+<!-- jQuery 3.1.1 -->
+<script type="text/javascript" src="../client/jQ/jquery.min.js"></script>
+<script type="text/javascript" src="../client/jQ/jquery.js"></script>	
+<script type="text/javascript" src="../client/jQ/bootstrap.min.js"></script>
+<!-- App js  -->
+<script type="text/javascript" src="../client/jS/metisMenu.js"></script>
+<script type="text/javascript" src="../client/jS/asideNav.js"></script>
 
-<!-- AdminLTE App -->
-<script src="https://cdnjs.cloudflare.com/ajax/libs/admin-lte/2.3.3/js/app.min.js"></script>
 </body>
 </html>

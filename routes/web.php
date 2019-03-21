@@ -19,3 +19,37 @@ Route::get('/', function () {
 Auth::routes();
 
 Route::get('/home', 'HomeController@index');
+
+Route::get('generator_builder', '\InfyOm\GeneratorBuilder\Controllers\GeneratorBuilderController@builder');
+
+Route::get('field_template', '\InfyOm\GeneratorBuilder\Controllers\GeneratorBuilderController@fieldTemplate');
+
+Route::post('generator_builder/generate', '\InfyOm\GeneratorBuilder\Controllers\GeneratorBuilderController@generate');
+
+
+Route::resource('brands', 'BrandsController');
+
+Route::resource('models', 'ModelsController');
+
+
+Route::resource('items', 'ItemsController');
+
+
+
+Route::resource('clients', 'ClientsController');
+
+Route::resource('clientTypes', 'ClientTypesController');
+
+Route::resource('branches', 'BranchesController');
+
+Route::resource('employees', 'EmployeesController');
+
+Route::resource('anauthorized', 'AnauthorizedController');
+
+Route::resource('warehouses', 'WarehouseController');
+
+Route::resource('warehouseTransctions', 'WarehouseTransctionController');
+
+Route::resource('mainStocks', 'MainStockController');
+
+Route::resource('mainStockTransctions', 'MainStockTransctionsController');

@@ -1,0 +1,303 @@
+/*
+	Author: Occura Software Ltd
+	Author url: http://www.occurasoftware.com
+	Copyright 2016 Allright Reserved
+*/
+
+@import "dataTables.bootstrap.min.css";
+
+/*
+/* Overview
+/* =================================== */
+
+	*{
+		padding:0px;
+		margin:0px;
+	}
+
+	
+
+	html, body{
+	    /*background: rgb(48, 57, 70);*/
+	    margin: 0;
+	    padding: 0;
+	    font:13px/21px 'Open Sans', sans-serif;
+	}
+
+
+/*
+/* Common Classes
+/* =================================== */
+	.clearfix{
+		width: 100%;
+	    padding: 2% 0px;
+	    margin: 0px;
+	    box-sizing: border-box;
+	}
+	
+	.dsh-row {
+		width:100%;
+		float: left;
+	}
+	
+	.inner-padding{
+		padding-left: 15px;
+		padding-right: 15px;
+	}
+	
+/*
+/* Custom classes
+/* =================================== */
+	
+	.dsh-default{
+		background: rgb(255, 255, 255);
+		fill: rgb(255, 255, 255);
+		border:0px;
+	}
+	.dsh-login{
+		background-color: transparent;
+		max-width: 480px;
+	}
+	.dsh-innerbar{
+	    width: 100%;
+	    height: auto;
+	    float: left;
+	    position: relative;
+	}
+
+
+	@media only screen and (min-width: 767px){
+		#dsh-container{
+			border-top: 1px solid rgb(231, 231, 231);
+			border-left: 1px solid rgb(231, 231, 231);
+			margin: 50px 0 0 250px;
+		    padding: 0 30px;
+
+		}
+	}
+
+/*
+/* Typography
+/* =================================== */
+
+	h1,h2,h3,
+	h4,h5,h6 {
+		margin-top:0px;
+		font-family: inherit;
+	}
+
+	p{
+		line-height: 1.8;
+		margin-bottom: 10px;
+	}
+
+	.login-panel h3{
+		color: rgb(73, 73, 73);
+		font-size: 16px;
+		font-weight: normal;
+		text-align: center;
+	}
+	.dsh-innerbar h5{
+		font-size: 13px;
+	    background-color: rgb(34, 40, 49);
+	    color: rgb(255, 255, 255);
+	    border-top: 1px solid rgb(34, 40, 49);
+	    border-bottom: 1px solid rgb(34, 40, 49);
+	    padding: 8px 15px;
+	    margin-bottom: 0px;
+	}
+	
+
+/*
+/* Code, Link
+/* =================================== */
+	
+	a {
+		outline:none !important;
+	    -webkit-transition: 	0.5s all;
+		-moz-transition: 		0.5s all;
+		transition: 			0.5s all;
+	}
+
+	a:focus, a:hover {
+		text-decoration: none;
+		outline: none !important;
+	}
+	.dsh-navbar .navbar-header a{ color: rgb(255,255, 255);	}
+	.dsh-navbar .navbar-header a:hover,
+	.dsh-navbar .navbar-header a:focus,
+	.dsh-navbar .navbar-header a:active,
+	.dsh-navbar .navbar-header a:visited { color: rgb(224,225, 225);}
+	
+
+	.panel-green 	a 		{color: rgb(92, 183, 92)	!important;}
+	.panel-green 	a:hover {color: rgb(61, 139, 61)	!important;}
+	.panel-red 	 	a 		{color: rgb(217, 83, 79)	!important;}
+	.panel-red 	 	a:hover {color: rgb(181, 43, 39)	!important;}
+	.panel-yellow 	a 	  	{color: rgb(240, 173, 78)	!important;}
+	.panel-yellow	a:hover {color: rgb(223, 138, 19)	!important;}
+	
+	.panel-red 		.counter,
+	.panel-green 	.counter,
+	.panel-primary 	.counter,
+	.panel-yellow 	.counter{
+		font-size: 24px;
+	    font-weight: bold;
+	    margin-bottom: 5px;
+	}
+	.panel-footer { color:inherit;}
+	
+	.dsh-pagination > li > a{
+		margin-left: 2px;
+	}
+
+/*
+/* Skin
+/* =================================== */
+
+	
+
+	
+
+
+/*
+/* Tables
+/* =================================== */
+	
+	.table-document > tr > td{
+		*
+	}
+	.table-document > tbody > tr > td > a{
+		color: rgb(96, 125, 139) !important;
+		display: block !important;
+		padding:5px 0px;
+	}
+
+/*
+/* Forms
+/* =================================== */
+
+
+	.form-horizontal.group-border .form-group,
+	.form-inline.group-border .form-group {
+	  	border-bottom: 1px solid rgb(227, 227, 227);
+	  	padding-bottom: 15px;
+	  	padding-top: 15px;
+	  	margin-left: -15px;
+	  	margin-right: -15px;
+	  	margin-bottom: 0;
+	}
+	.form-horizontal.group-border .form-group:last-child,
+	.form-inline.group-border .form-group:last-child {
+	  	border-bottom: none;
+	  	margin-bottom: -15px;
+	    border-bottom-left-radius: 4px;
+	    border-bottom-right-radius: 4px;
+	}
+	.form-horizontal.stripped .form-group:nth-child(even),
+	.form-inline.stripped .form-group:nth-child(even) {
+	  	background: rgb(249, 249, 249);
+	}
+	.form-horizontal.hover-stripped .form-group:hover,
+	.form-inline.hover-stripped .form-group:hover {
+	  	transition: background ease-in-out .25s;
+	  	background: rgb(249, 249, 249);
+	}
+
+	.letter textarea.form-control{
+		cursor: auto;
+		padding:25px 25px;
+	    white-space: pre-wrap;
+	    word-wrap: break-word;
+	    line-height: 1.8;
+	}
+
+	.form-xs{
+		height: 25px;
+		padding:2px 12px;
+	}
+/*
+/* Buttons
+/* =================================== */
+	
+	
+	
+/*
+/* Images
+/* =================================== */
+
+	.img-avatar{
+		
+		background-position: center center !important;
+	    background-size: 100% auto !important;
+	    width: 29px;
+	    height: 29px;
+	    border-radius: 50%;
+	    margin-right: 10px;
+	}
+
+	.img-brand{
+		background: url(../images/logo.png);
+		background-size: auto 100% !important;
+	    background-position: center center !important;
+	    width: 80px;
+	    height: 80px;
+	    margin:0 auto;
+	    margin-bottom: 15px;
+	}
+	
+/*
+/* Notification
+/* =================================== */
+	.form-required,
+	.x-close{
+		color:rgb(255, 0, 0);
+	}
+
+/*
+/* Help Class
+/* =================================== */
+	.text-left	{ text-align: left !important }
+	.text-right	{ text-align: right !important }
+	.text-capitalize { text-transform: capitalize !important; }
+	.text-lowercase  { text-transform: lowercase !important; }
+	.text-uppercase	 { text-transform: uppercase !important; }
+	.text-danger{ color: rgb(243, 5, 0) !important; }
+	.text-warning {color: rgb(240, 173, 78);}
+
+
+	.m-0 {margin: 0px;}
+	.p-0 {padding: 0px;}
+
+	.m-auto{ margin: auto; }
+
+	.mt-0{ margin-top: 0px; }
+	.mr-0{ margin-right: 0px; }
+	.mb-0{ margin-bottom:  0px; }
+	.ml-0{ margin-left: 0px; }
+
+	.mt-15 {margin-top: 15px;}
+	.mr-15 {margin-right: 15px;}
+	.mb-15 {margin-bottom: 15px;}
+	.ml-15 {margin-left:  15px;}
+
+
+	.py {padding: 15px 0px;}
+	.px {padding: 0px 15px;}
+
+	.pt-15 {padding-top: 15px;}
+	.pr-15 {padding-right: 15px;}
+	.pb-15 {padding-bottom: 15px;}
+	.pl-15 {padding-left:  15px;}
+
+/*
+/* Responsive utilities
+/* =================================== */
+
+@media only screen and (min-width: 992px){  }
+
+@media only screen and (max-width: 767px){ #dsh-container {min-height: 1704px;} }
+
+@media only screen and (max-width: 486px){ .col-xs-6 {width: 100% !important; } }
+
+

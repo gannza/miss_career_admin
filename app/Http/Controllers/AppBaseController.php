@@ -4,7 +4,7 @@ namespace App\Http\Controllers;
 
 use InfyOm\Generator\Utils\ResponseUtil;
 use Response;
-
+use Auth;
 /**
  * @SWG\Swagger(
  *   basePath="/api/v1",
@@ -26,5 +26,10 @@ class AppBaseController extends Controller
     public function sendError($error, $code = 404)
     {
         return Response::json(ResponseUtil::makeError($error), $code);
+    }
+    public function authorized()
+    {
+        return Auth::user()->activated_user;
+      
     }
 }
