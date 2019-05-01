@@ -18,7 +18,7 @@
             <td>{!! $employees->email !!}</td>
             <td>{!! $employees->phone !!}</td>
             <td>{!! $employees->gender !!}</td>
-            <td>{!! $employees->branch_id !!}</td>
+            <td>{!! $employees->branch['name'] !!}</td>
 
             @if ($employees->role == 0)
             <td>Admin</td>

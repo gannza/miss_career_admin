@@ -165,7 +165,7 @@
 /* =================================== */
 	
 	.table-document > tr > td{
-		*
+	
 	}
 	.table-document > tbody > tr > td > a{
 		color: rgb(96, 125, 139) !important;
@@ -300,4 +300,8 @@
 
 @media only screen and (max-width: 486px){ .col-xs-6 {width: 100% !important; } }
 
-
+.disabled{
+	cursor: not-allowed;
+	background-color: #eeeeee;
+	opacity: 1;
+}

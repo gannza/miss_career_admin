@@ -1,23 +1,33 @@
 @extends('layouts.app')
 
 @section('content')
-    <section class="content-header">
-        <h1>
-            Main Stock
-        </h1>
-   </section>
-   <div class="content">
-       @include('adminlte-templates::common.errors')
-       <div class="box box-primary">
-           <div class="box-body">
-               <div class="row">
-                   {!! Form::model($mainStock, ['route' => ['mainStocks.update', $mainStock->id], 'method' => 'patch']) !!}
+<div id="dsh-container" class="dsh-container dsh-default">
+			<div class="dsh-row">
+				<div class="clearfix"></div>
+					<div class="col-xs-12">
+						<div class="col-xs-12 col-md-8 col-md-offset-2">
+			                <div class="panel panel-default">
+		                        <div class="panel-heading">
+		                           <i class="fa fa-user-circle-o"></i>
+								   @if ($mainStock->transfer==0)
+									   Edit Stock Main Stock 
+									   @endif 
+									   @if ($mainStock->transfer==1)
+									   Transfer Stock 
+									   @endif 
+		                        </div>
+		                        <div class="panel-body">
+                                @include('adminlte-templates::common.errors')
+								{!! Form::model($mainStock, ['route' => ['mainStocks.update', $mainStock->id], 'method' => 'patch','class' => 'form-horizontal group-border stripped']) !!}
 
-                        @include('main_stocks.fields')
+                                    @include('main_stocks.fields')
 
-                   {!! Form::close() !!}
-               </div>
-           </div>
-       </div>
-   </div>
+                                    {!! Form::close() !!}
+                                                                                                                
+                            </div>  
+                        </div>
+                    </div>
+            </div>
+        </div>
+</div>
 @endsection

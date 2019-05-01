@@ -8,7 +8,8 @@
 					<div class="col-xs-12">
                     <section class="content-header">
                         <h1 class="pull-right">
-                        <a class="btn btn-primary pull-right" style="margin-top: -10px;margin-bottom: 5px" href="{!! route('models.create') !!}">Add New</a>
+						<a class="btn btn-primary" href="{!! route('models.create') !!}">Add New</a>
+						<a class="btn btn-success" href="/export_model"><i class="fa fa-print"></i><span> Export into excel</span></a>
                         </h1>
                     </section>
                     <div>

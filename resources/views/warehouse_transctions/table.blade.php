@@ -4,7 +4,10 @@
         <th>Model</th>
         <th>Currenty Qty</th>
         <th>Added Qty</th>
-        <th>Transction</th>
+        <th>Removed Qty</th>
+        <th>Transfered Qty</th>
+        <th>Operation</th>
+        <th>Reason</th>
         <th>Messages</th>
         <th>Created at</th>
             <th>Updated at</th>
@@ -18,7 +21,10 @@
         <td>{!! $warehouseTransction->model?$warehouseTransction->model->name:'' !!}</td>
             <td>{!! $warehouseTransction->currenty_qty !!}</td>
             <td>{!! $warehouseTransction->added_qty !!}</td>
+            <td>{!! $warehouseTransction->removed_qty !!}</td>
+            <td>{!! $warehouseTransction->transfered_qty !!}</td>
             <td>{!! $warehouseTransction->action !!}</td>
+            <td>{!! $warehouseTransction->reason !!}</td>
             <td>{!! $warehouseTransction->messages !!}</td>
             <td>{!! $warehouseTransction->created_at !!}</td>
             <td>{!! $warehouseTransction->updated_at !!}</td>

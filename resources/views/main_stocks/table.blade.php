@@ -23,7 +23,7 @@
                 {!! Form::open(['route' => ['mainStocks.destroy', $mainStock->id], 'method' => 'delete']) !!}
                 <div class='btn-group'>
                     <a href="{!! route('mainStocks.show', [$mainStock->id]) !!}" class='btn btn-default btn-xs'><i class="glyphicon glyphicon-eye-open"></i></a>&nbsp;&nbsp;
-                    <a href="{!! route('mainStocks.edit', [$mainStock->id,'transfer'=>false]) !!}" class='btn btn-default btn-xs'><i class="glyphicon glyphicon-edit"></i>Edit</a>&nbsp;&nbsp;
+                    <a href="{!! route('mainStocks.edit', [$mainStock->id,'transfer'=>false]) !!}" class='btn btn-default btn-xs'><i class="glyphicon glyphicon-plus"></i>/<i class="glyphicon glyphicon-minus"></i></a>&nbsp;&nbsp;
                     @if ($mainStock->qty > 0)
                     <a href="{!! route('mainStocks.edit', [$mainStock->id,'transfer'=>true]) !!}" class='btn btn-default btn-xs'><i class="glyphicon glyphicon-share"></i>Transfer</a>&nbsp;&nbsp;
                     @endif

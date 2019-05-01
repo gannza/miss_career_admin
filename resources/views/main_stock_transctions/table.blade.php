@@ -4,7 +4,10 @@
         <th>Model</th>
         <th>Currenty Qty</th>
         <th>Added Qty</th>
-        <th>Transction</th>
+        <th>Removed Qty</th>
+        <th>Transfered Qty</th>
+        <th>Operation</th>
+        <th>Reason</th>
         <th>Messages</th>
         <th>Created at</th>
             <th>Updated at</th>
@@ -18,7 +21,10 @@
         <td>{!! $mainStockTransction->model?$mainStockTransction->model->name:'' !!}</td>
             <td>{!! $mainStockTransction->currenty_qty !!}</td>
             <td>{!! $mainStockTransction->added_qty !!}</td>
+            <td>{!! $mainStockTransction->removed_qty !!}</td>
+            <td>{!! $mainStockTransction->transfered_qty !!}</td>
             <td>{!! $mainStockTransction->action !!}</td>
+            <td>{!! $mainStockTransction->reason !!}</td>
             <td>{!! $mainStockTransction->messages !!}</td>
             <td>{!! $mainStockTransction->created_at !!}</td>
             <td>{!! $mainStockTransction->updated_at !!}</td>

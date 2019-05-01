@@ -19,6 +19,9 @@ class CreateClientsTable extends Migration
             $table->string('last_name');
             $table->string('phone_number');
             $table->string('email');
+            $table->string('name');
+            $table->string('address');
+            $table->string('company');
             $table->unsignedInteger('client_type_id')->nullable();
             $table->foreign('client_type_id')->references('id')->on('client_types')
                 ->onUpdate('cascade')->onDelete('cascade');

@@ -13,14 +13,16 @@ use Flash;
 use Prettus\Repository\Criteria\RequestCriteria;
 use Response;
 use Log;
+use Maatwebsite\Excel\Excel;
 class EmployeesController extends AppBaseController
 {
     /** @var  EmployeesRepository */
     private $employeesRepository;
 
-    public function __construct(EmployeesRepository $employeesRepo)
+    public function __construct(EmployeesRepository $employeesRepo,Excel $excel)
     {
         $this->employeesRepository = $employeesRepo;
+        $this->excel=$excel;
     }
 
     /**
@@ -31,18 +33,61 @@ class EmployeesController extends AppBaseController
      */
     public function index(Request $request)
     {
+        $eplys=[];
         $this->employeesRepository->pushCriteria(new RequestCriteria($request));
         $employees = $this->employeesRepository->all();
-
+        foreach($employees as $e){
+            $eplys[]=$this->transform($e);
+        }
         return !$this->authorized()?view('anauthorized.index'):view('employees.index')
-            ->with('employees', $employees);
+            ->with('employees', $eplys);
     }
-    // function transform(Clients $client){
-    //     $client['branch']=Branches::where('id',$client->client_type_id)->first();
-    //   // $client->clientTypes=$client->clientTypes->name;
-    //     return $client;
-    // }
 
+    public function employeesTypeExport($type="xls"){
+        $employees = Employees::select('name as Name' ,'email as Email','phone as Phone','gender as Gender','branch_id as Branch','role as Role','created_at as Created_at')->get()->toArray();
+        
+         return $this->excel->create('employees-'.time(), function($excels) use ($employees) {
+             $excels->sheet('Employees Details', function($sheet) use ($employees)
+             {
+                 $sheet->fromArray($this->updateBranchAndRole($employees));
+             });
+         })->download($type);
+         return redirect(route('employees.index'));
+    
+     }
+
+     function updateBranchAndRole($employees){
+        $all=[];
+        foreach($employees as $c){
+            $ct=Branches::where('id',$c['Branch'])->first();
+            if($ct){
+                $c['Branch']=$ct->name;
+            }else{
+                $c['Branch']='';
+            }
+            if ($c['Role'] == 0){
+                $c['Role']= 'Admin';
+            }else  if ($c['Role'] == 1){
+                $c['Role']= 'Branch Manager';
+            }else  if ($c['Role'] == 2){
+                $c['Role']= 'Tail';
+            }
+            if ($c['Gender'] == 'M'){
+                $c['Gender']= 'Male';
+            }else   if ($c['Gender'] == 'F'){
+                $c['Gender']= 'Female';
+            }
+            $all[]=$c;
+        }
+        return $all;
+
+    }
+
+     function transform(Employees $e){
+        $e['branch']=Branches::where('id',$e->branch_id)->first();
+        return $e;
+     }
+    
     /**
      * Show the form for creating a new Employees.
      *

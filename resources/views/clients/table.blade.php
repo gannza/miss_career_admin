@@ -5,6 +5,8 @@
         <th>Last Name</th>
         <th>Phone Number</th>
         <th>Email</th>
+        <th>Address</th>
+        <th>Company</th>
         <th>Client Type</th>
         <th>Action</th>
         </tr>
@@ -16,6 +18,8 @@
             <td>{!! $clients->last_name !!}</td>
             <td>{!! $clients->phone_number !!}</td>
             <td>{!! $clients->email !!}</td>
+            <td>{!! $clients->address !!}</td>
+            <td>{!! $clients->company !!}</td>
             <td>{!! $clients->customer_type->name !!}</td>
             <td>
                 {!! Form::open(['route' => ['clients.destroy', $clients->id], 'method' => 'delete']) !!}

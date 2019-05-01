@@ -87,7 +87,171 @@
 	<script type="text/javascript">
 		$(document).ready(function() {
 		    $('#transaction').DataTable();
-		} );
+		
+		$.ajaxSetup({
+        headers: {
+        'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+        }
+        });
+		const model=[];
+		$(document).on('input', '.amount_due', function(){
+			var amount_due=$(this).val();
+			var total_amount=$('#total_amount').val();
+			var balance=$('.balance');
+			balance.css({'color':'green'});
+			// if((amount_due-total_amount) < 0){
+			// 	alert('Insfficient amount paid!');
+			// 	balance.css({'color':'red'});
+			// }
+			balance.html(amount_due-total_amount);
+			
+		});
+		$(document).on('change', '.amount_due', function(){
+			var amount_due=$(this).val();
+			var total_amount=$('#total_amount').val();
+			var balance=$('.balance');
+			balance.css({'color':'green'});
+			if((amount_due-total_amount) < 0){
+				alert('Insfficient amount paid!');
+				balance.css({'color':'red'});
+			}
+			balance.html(amount_due-total_amount);
+			
+		});
+//cart_price
+		$(document).on('input', '.cart_price', function(){
+			var cart_price=$(this).val();
+			var cart_qty=$('.cart_qty').val();
+			var cart_total=$('.cart_total');
+			var currency=$('.currency').val();
+			cart_total.val(currency+' '+cart_price*cart_qty);
+			
+		});
+
+		$(document).on('input', '.cart_qty', function(){
+			var cart_qty=$(this).val();
+			var cart_price=$('.cart_price').val();
+			var cart_total=$('.cart_total');
+			var currency=$('.currency').val();
+			cart_total.val(currency+' '+cart_price*cart_qty);
+			
+		});
+		$(document).on('input', '.currency', function(){
+			$('.view_currency').html($(this).val());
+		});
+		
+
+
+		$(document).on('click', '.delete_cart', function(){
+		var cart_id = $(this).attr("id");
+            var url = "/destroy_cart/"+cart_id;
+
+            $.ajax({
+
+            type: "GET",
+            url: url,
+            success: function (data) {
+			if(data){
+				return window.location.reload();
+			}
+
+            },
+            error: function (data) {
+            console.log('Error:', data);
+            }
+            });
+		});
+		$(document).on('change', '.branch_id', function(){
+			loadModal();
+		});
+		$(document).on('change', '.select_model', function(){
+			const selected=$(this).val();
+			const choosen=model.find(el=>el.id==selected);
+			
+			var cart_price=$('.cart_price').val(choosen.model.sale_price?choosen.model.sale_price:0.00);
+			var cart_qty=$('.cart_qty').val(1);
+			var cart_total=$('.cart_total');
+			var currency=$('.currency').val();
+			var price=$('.cart_price').val();
+			var qty=$('.cart_qty').val();
+			cart_total.val(currency+' '+price*qty);
+		});
+		loadModal();
+		function loadModal(){
+		var branch_id = $('.branch_id').val();;
+		// if(branch_id==null){
+		// 	alert('Please,choose branch first!');
+		// 	return;
+		// }
+            var url = "/model-branch/"+branch_id;
+			var htmls= $('.select_model');
+			var option="<option> </option>";
+            $.ajax({
+
+            type: "GET",
+            url: url,
+            success: function (data) {
+			if(data){
+			data.forEach(element => {
+				model.push(element);
+				option+=`<option value="${element.id}">${element.model.name}</option>`;
+					
+				});
+				htmls.html(option);
+				
+			}
+
+            },
+            error: function (data) {
+            console.log('Error:', data);
+            }
+            });
+		};
+
+		//attr("width")
+		$(document).on('click', '.export_warehouse', function(){
+			
+		});
+		//models
+		$(document).on('click', '.add_cart', function(){
+			var cart_price=$('.cart_price').val();
+			var cart_qty=$('.cart_qty').val();
+			var cart_total=$('.cart_total').val();
+			var cart_model=$('.select_model').val();
+
+			if(cart_model==null || (cart_price==null|| cart_price=="0.00") || (cart_total==null|| cart_total=="0.00") || (cart_qty==null|| cart_qty=="0.00") ){
+				alert('Field(s) are required!');
+				return;
+			}
+		var sale_id = $(this).attr("id");
+            var url = "/add_cart";
+
+			var token=$('.token').val();
+			const data={
+				model_id:cart_model,
+				sale_id:sale_id,
+				price:cart_price,
+				qty:cart_qty,
+				total:cart_total,
+				_token:$('.token').val()
+			}
+            $.ajax({
+
+            type: "POST",
+			url: url,
+			data:data,
+            success: function (data) {
+			if(data){
+				return window.location.reload();
+			}
+
+            },
+            error: function (data) {
+            console.log('Error:', data);
+            }
+            });
+        });
+	});
 	</script>
         
 @yield('scripts')

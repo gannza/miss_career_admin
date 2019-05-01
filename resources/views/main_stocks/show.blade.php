@@ -1,19 +1,23 @@
 @extends('layouts.app')
 
 @section('content')
-    <section class="content-header">
-        <h1>
-            Main Stock
-        </h1>
-    </section>
-    <div class="content">
-        <div class="box box-primary">
-            <div class="box-body">
-                <div class="row" style="padding-left: 20px">
-                    @include('main_stocks.show_fields')
-                    <a href="{!! route('mainStocks.index') !!}" class="btn btn-default">Back</a>
-                </div>
+<div id="dsh-container" class="dsh-container dsh-default">
+		<div class="dsh-row">
+				<div class="clearfix"></div>
+					<div class="col-xs-12">
+						<div class="col-xs-12 col-md-8 col-md-offset-2">
+			                <div class="panel panel-default">
+		                        <div class="panel-heading">
+		                           <i class="fa fa-user-circle-o"></i>Main Stock 
+		                        </div>
+		                        <div class="panel-body">
+                                @include('main_stocks.show_fields')
+									<a href="{!! route('mainStocks.index') !!}" class="btn btn-default">Back</a>
+                   				 </div>  
+                        </div>
+                    </div>
             </div>
         </div>
-    </div>
+</div>
 @endsection
+

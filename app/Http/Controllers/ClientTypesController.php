@@ -7,18 +7,20 @@ use App\Http\Requests\UpdateClientTypesRequest;
 use App\Repositories\ClientTypesRepository;
 use App\Http\Controllers\AppBaseController;
 use Illuminate\Http\Request;
+use App\Models\ClientTypes;
 use Flash;
 use Prettus\Repository\Criteria\RequestCriteria;
 use Response;
-
+use Maatwebsite\Excel\Excel;
 class ClientTypesController extends AppBaseController
 {
     /** @var  ClientTypesRepository */
     private $clientTypesRepository;
 
-    public function __construct(ClientTypesRepository $clientTypesRepo)
+    public function __construct(ClientTypesRepository $clientTypesRepo,Excel $excel)
     {
         $this->clientTypesRepository = $clientTypesRepo;
+        $this->excel=$excel;
     }
 
     /**
@@ -35,7 +37,18 @@ class ClientTypesController extends AppBaseController
         return !$this->authorized()?view('anauthorized.index'):view('clientTypes.index')
             ->with('clientTypes', $clientTypes);
     }
+    public function clientsTypeExport($type="xls"){
+    $clients = ClientTypes::select('name as Name' ,'discount_value as Discount Value','created_at as Created_at')->get()->toArray();
+    
+     return $this->excel->create('Clients_type-'.time(), function($excels) use ($clients) {
+         $excels->sheet('Client Type Details', function($sheet) use ($clients)
+         {
+             $sheet->fromArray($clients);
+         });
+     })->download($type);
+     return redirect(route('clientTypes.index'));
 
+ }
     /**
      * Show the form for creating a new ClientTypes.
      *

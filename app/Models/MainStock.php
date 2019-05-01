@@ -39,7 +39,8 @@ class MainStock extends Model
     protected $casts = [
         'qty' => 'integer',
         'total_entered_qty' => 'integer',
-        'added_qty' => 'integer'
+        'model_id'=>'integer',
+        'added_qty'=>'integer'
     ];
 
     /**
@@ -48,9 +49,8 @@ class MainStock extends Model
      * @var array
      */
     public static $rules = [
-        'qty' => 'required',
-        'total_entered_qty' => 'required',
-        'added_qty' => 'required'
+        'added_qty' => 'required',
+        'model_id'=> 'required',
     ];
 
     

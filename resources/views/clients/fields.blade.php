@@ -39,6 +39,25 @@
     
 </div>
 
+<div class="form-group">
+    <div class="col-lg-3">
+    {!! Form::label('address', 'Address:') !!}
+    </div>
+    <div class="col-lg-9">
+    {!! Form::text('address', null, ['class' => 'form-control']) !!}
+</div>
+    
+</div>
+<div class="form-group">
+    <div class="col-lg-3">
+    {!! Form::label('company', 'Company:') !!}
+    </div>
+    <div class="col-lg-9">
+    {!! Form::text('company', null, ['class' => 'form-control']) !!}
+</div>
+    
+</div>
+
 <!-- Client type Field -->
 <div class="form-group">
     <div class="col-lg-3">

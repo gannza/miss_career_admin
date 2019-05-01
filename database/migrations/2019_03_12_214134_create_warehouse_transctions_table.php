@@ -17,7 +17,10 @@ class CreateWarehouseTransctionsTable extends Migration
             $table->increments('id');
             $table->integer('currenty_qty');
             $table->string('action');
-            $table->integer('added_qty');
+            $table->string('reason');
+            $table->integer('added_qty')->default(0);
+            $table->integer('removed_qty')->default(0);
+            $table->integer('transfered_qty')->default(0);
             $table->string('messages');
             $table->unsignedInteger('model_id')->nullable();
             $table->foreign('model_id')->references('id')->on('models')

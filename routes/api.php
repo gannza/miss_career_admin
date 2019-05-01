@@ -40,3 +40,11 @@ Route::resource('warehouse_transctions', 'WarehouseTransctionAPIController');
 Route::resource('main_stocks', 'MainStockAPIController');
 
 Route::resource('main_stock_transctions', 'MainStockTransctionsAPIController');
+
+Route::resource('stocks', 'StocksAPIController');
+
+Route::resource('stock_movements', 'stockMovementsAPIController');
+
+Route::resource('sales', 'SalesAPIController');
+
+Route::resource('sales_items', 'SalesItemsAPIController');

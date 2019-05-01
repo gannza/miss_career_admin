@@ -13,14 +13,18 @@ use Response;
 use App\Models\ClientTypes;
 use Log;
 use App\Models\Clients;
+use Maatwebsite\Excel\Excel;
+use App\Exports\ClientsExport;
+
 class ClientsController extends AppBaseController
 {
     /** @var  ClientsRepository */
     private $clientsRepository;
 
-    public function __construct(ClientsRepository $clientsRepo)
+    public function __construct(ClientsRepository $clientsRepo,Excel $excel)
     {
         $this->clientsRepository = $clientsRepo;
+        $this->excel=$excel;
     }
 //   @if (count($records) === 1)
 //     I have one record!
@@ -35,22 +39,49 @@ class ClientsController extends AppBaseController
      * @param Request $request
      * @return Response
      */
+
+    public function clientsExport($type="xls"){
+       $clients = Clients::select('first_name as First_Name' ,'last_name as Last_Name','phone_number as Phone','email as Email','client_type_id as Client_Type')->get()->toArray();
+       
+        return $this->excel->create('Clients', function($excels) use ($clients) {
+            $excels->sheet('Client Details', function($sheet) use ($clients)
+            {
+                $sheet->fromArray($this->updateClientType($clients));
+            });
+        })->download($type);
+        return redirect(route('clients.index'));
+
+    }
+    function updateClientType($clients){
+        $all=[];
+        foreach($clients as $c){
+            $ct=ClientTypes::where('id',$c['Client_Type'])->first();
+            if($ct){
+                $c['Client_Type']=$ct->name;
+            }else{
+                $c['Client_Type']='';
+            }
+            $all[]=$c;
+        }
+        return $all;
+
+    }
+
     public function index(Request $request)
     {
         $clients=[];
-       // $this->clientsRepository->pushCriteria(new RequestCriteria($request));
-        $clients = $this->clientsRepository->all();
-         foreach($clients as $client){
+       $this->clientsRepository->pushCriteria(new RequestCriteria($request));
+        $clientss = $this->clientsRepository->all();
+         foreach($clientss as $client){
             
             $clients[]=$this->transform($client);
         }
-//Log::info($clients);
+        
         return !$this->authorized()?view('anauthorized.index'): view('clients.index')
                     ->with('clients', $clients);
             }
     function transform(Clients $client){
         $client['customer_type']=ClientTypes::where('id',$client->client_type_id)->first();
-      // $client->clientTypes=$client->clientTypes->name;
         return $client;
     }
 
@@ -74,6 +105,7 @@ class ClientsController extends AppBaseController
     public function store(CreateClientsRequest $request)
     {
         $input = $request->all();
+        $input['name']=$input['first_name'].' '.$input['last_name'];
         $clients = $this->clientsRepository->create($input);
 
         Flash::success('Clients saved successfully.');
@@ -131,6 +163,8 @@ class ClientsController extends AppBaseController
      */
     public function update($id, UpdateClientsRequest $request)
     {
+        $input = $request->all();
+        $input['name']=$input['first_name'].' '.$input['last_name'];
         $clients = $this->clientsRepository->findWithoutFail($id);
 
         if (empty($clients)) {
@@ -139,7 +173,7 @@ class ClientsController extends AppBaseController
             return redirect(route('clients.index'));
         }
 
-        $clients = $this->clientsRepository->update($request->all(), $id);
+        $clients = $this->clientsRepository->update($input, $id);
 
         Flash::success('Clients updated successfully.');
 

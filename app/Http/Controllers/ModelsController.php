@@ -7,18 +7,22 @@ use App\Http\Requests\UpdateModelsRequest;
 use App\Repositories\ModelsRepository;
 use App\Http\Controllers\AppBaseController;
 use Illuminate\Http\Request;
+use App\Models\Models;
+use App\Models\Stocks;
+use Maatwebsite\Excel\Excel;
 use Flash;
 use Prettus\Repository\Criteria\RequestCriteria;
 use Response;
-
+use Log;
 class ModelsController extends AppBaseController
 {
     /** @var  ModelsRepository */
     private $modelsRepository;
 
-    public function __construct(ModelsRepository $modelsRepo)
+    public function __construct(ModelsRepository $modelsRepo,Excel $excel)
     {
         $this->modelsRepository = $modelsRepo;
+        $this->excel=$excel;
     }
 
     /**
@@ -35,7 +39,19 @@ class ModelsController extends AppBaseController
         return !$this->authorized()?view('anauthorized.index'):view('models.index')
             ->with('models', $models);
     }
+//export_model
+public function modelsExport($type="xls"){
+    $models = Models::select('name as Name' ,'cost_price as Cost Price','sale_price as Sales Price','description as Description','created_at as Created_at')->get()->toArray();
+    
+     return $this->excel->create('models-'.time(), function($excels) use ($models) {
+         $excels->sheet('Models Details', function($sheet) use ($models)
+         {
+             $sheet->fromArray($models);
+         });
+     })->download($type);
+     return redirect(route('models.index'));
 
+ }
     /**
      * Show the form for creating a new Models.
      *
@@ -44,6 +60,14 @@ class ModelsController extends AppBaseController
     public function create()
     {
         return view('models.create');
+    }
+    function getModelByBranch($branch_id){
+        $arrs=[];
+         foreach(Stocks::where('branch_id',$branch_id)->get() as $arr){
+            $arr['model']=Models::where('id',$arr->model_id)->first();
+            $arrs[]=$arr;
+         }
+         return $arrs;
     }
 
     /**

@@ -4,7 +4,7 @@ namespace App\Models;
 
 use Eloquent as Model;
 use Illuminate\Database\Eloquent\SoftDeletes;
-
+use DB;
 /**
  * Class Clients
  * @package App\Models
@@ -30,6 +30,9 @@ class Clients extends Model
         'last_name',
         'phone_number',
         'email',
+        'name',
+        'address',
+        'company',
         'client_type_id'
     ];
 
@@ -43,6 +46,9 @@ class Clients extends Model
         'last_name' => 'string',
         'phone_number' => 'string',
         'email' => 'string',
+        'name'=>'string',
+        'address' => 'string',
+        'company' => 'string',
         'client_type_id' => 'integer'
     ];
 
@@ -62,4 +68,10 @@ class Clients extends Model
         return $this->hasMany(ClientTypes::class);
 
     }
+    public static function getClients(){
+
+        $records = DB::table('clients')->select('first_name','last_name','phone_number')->orderBy('id', 'asc')->get()->toArray();
+   
+        return $records;
+      }
 }

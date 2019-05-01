@@ -32,4 +32,12 @@ class AppBaseController extends Controller
         return Auth::user()->activated_user;
       
     }
+    function arrayAdd($array) {
+        $carry = null;
+        $count = count($array);
+        return array_reduce($array, function ($carried, $value) use ($count) {
+             return ($carried===null?0:$carried) + $value;
+        },$carry);
+    }
 }
+

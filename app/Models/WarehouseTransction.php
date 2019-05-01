@@ -28,7 +28,10 @@ class WarehouseTransction extends Model
     public $fillable = [
         'currenty_qty',
         'action',
+        'reason',
         'added_qty',
+        'removed_qty',
+        'transfered_qty',
         'messages',
         'model_id'
     ];
@@ -41,7 +44,10 @@ class WarehouseTransction extends Model
     protected $casts = [
         'currenty_qty' => 'integer',
         'action' => 'string',
+        'reason' => 'string',
         'added_qty' => 'integer',
+        'removed_qty' => 'integer',
+        'transfered_qty' => 'integer',
         'messages' => 'string'
     ];
 

@@ -1,5 +1,5 @@
 
-<li><a href="./"><i class="fa fa-tv"></i> Dashboard </a></li>
+<li><a href="/"><i class="fa fa-tv"></i> Dashboard </a></li>
 
 								@if (Auth::user()->role == 0)
 									<li class="{{ Request::is('branches*') ? 'active' : '' }}">
@@ -13,42 +13,63 @@
 										<a href="{!! route('clientTypes.index') !!}"><i class="fa fa-edit"></i><span>Client Types</span></a>
 									</li>
 
-									<li class="{{ Request::is('clients*') ? 'active' : '' }}">
-										<a href="{!! route('clients.index') !!}"><i class="fa fa-user-o"></i><span>Clients</span></a>
-									</li>
-								
+							
 
 									<li class="{{ Request::is('models*') ? 'active' : '' }}">
 										<a href="{!! route('models.index') !!}"><i class="fa fa-edit"></i><span>Models</span></a>
 									</li>
-									@endif
-                                    @if (Auth::user()->role == 0 || Auth::user()->role == 1)
+
 									<li>
 										<a class="{{ Request::is('warehouses*') ? 'active' : '' }}"><i class="fa fa-cubes"></i>WareHouse<span class="fa fa-angle-down pull-right"></span></a>
 										<ul class="nav-second-level">
 											<!-- <li><a href="{!! route('warehouses.create') !!}">Add Stock</a></li> -->
-											<li><a href="{!! route('warehouses.index') !!}">View Currenty Stock</a></li>
+											<li><a href="{!! route('warehouses.index') !!}">View Stock</a></li>
 											<li><a href="{!! route('warehouseTransctions.index') !!}">Stock Movements</a></li>
 
 										</ul>
 									</li>
 
+
 									<li>
 										<a class="{{ Request::is('mainStocks*') ? 'active' : '' }}"><i class="fa fa-cubes"></i>Main Stock<span class="fa fa-angle-down pull-right"></span></a>
 										<ul class="nav-second-level">
 											<!-- <li><a href="{!! route('mainStocks.create') !!}">Add Stock</a></li> -->
-											<li><a href="{!! route('mainStocks.index') !!}">View Currenty Stock</a></li>
+											<li><a href="{!! route('mainStocks.index') !!}">View Stock</a></li>
 											<li><a href="{!! route('mainStockTransctions.index') !!}">Stock Movements</a></li>
 
 										</ul>
 									</li>
+
+									
 									@endif
+                                    @if (Auth::user()->role == 0 || Auth::user()->role == 1)
+								
+
 									<li>
+										<a class="{{ Request::is('stocks*') ? 'active' : '' }}"><i class="fa fa-cubes"></i>Stocks<span class="fa fa-angle-down pull-right"></span></a>
+										<ul class="nav-second-level">
+											<li><a href="{!! route('stocks.index') !!}">View Stocks</a></li>
+											<li><a href="{!! route('stockMovements.index') !!}">Stock Movements</a></li>
+
+										</ul>
+									</li>
+									@endif
+
+									<li class="{{ Request::is('clients*') ? 'active' : '' }}">
+										<a href="{!! route('clients.index') !!}"><i class="fa fa-user-o"></i><span>Clients</span></a>
+									</li>
+
+									<li class="{{ Request::is('sales*') ? 'active' : '' }}">
 										<a href="#"><i class="fa fa-money"></i> Sales 
 										<span class="fa fa-angle-down pull-right"></span></a>
 										<ul class="nav-second-level">
-											<li><a href="#">Add Sale</a></li>
-											<li><a href="#">All Sales</a></li>
+											<li><a href="{!! route('sales.create') !!}">Add Sale</a></li>
+											<li><a href="{!! route('sales.index') !!}">All Sales</a></li>
+											<!-- <li><a href="{!! route('sales.index') !!}">Filtering Sales</a></li>
+											<li><a href="#">Daily Sales</a></li>
+											<li><a href="#">Monthly Sales</a></li>
+											<li><a href="#">Yearly Sales</a></li> -->
+											
 										</ul>
 									</li>
 									
@@ -70,6 +91,5 @@
 										</ul>
                                     </li>
 									@endif
-
 
 

@@ -10,15 +10,17 @@ use Illuminate\Http\Request;
 use Flash;
 use Prettus\Repository\Criteria\RequestCriteria;
 use Response;
-
+use Maatwebsite\Excel\Excel;
+use App\Models\Branches;
 class BranchesController extends AppBaseController
 {
     /** @var  BranchesRepository */
     private $branchesRepository;
 
-    public function __construct(BranchesRepository $branchesRepo)
+    public function __construct(BranchesRepository $branchesRepo,Excel $excel)
     {
         $this->branchesRepository = $branchesRepo;
+        $this->excel=$excel;
     }
 
     /**
@@ -34,6 +36,18 @@ class BranchesController extends AppBaseController
         return !$this->authorized()?view('anauthorized.index'):view('branches.index')
             ->with('branches', $branches);
     }
+    public function branchExport($type="xls"){
+        $branches = Branches::select('name as Name' ,'type as Type','created_at as Created_at')->get()->toArray();
+        
+         return $this->excel->create('branches-'.time(), function($excels) use ($branches) {
+             $excels->sheet('Branch Details', function($sheet) use ($branches)
+             {
+                 $sheet->fromArray($branches);
+             });
+         })->download($type);
+         return redirect(route('branches.index'));
+    
+     }
 
     /**
      * Show the form for creating a new Branches.
@@ -42,7 +56,7 @@ class BranchesController extends AppBaseController
      */
     public function create()
     {
-        return view('branches.create')->with('branchType',['Main_branch'=>'Main_branch','Main_branch'=>'Main_branch','Warehouse'=>'Warehouse','Warehouse'=>'Warehouse','Branch'=>'Branch','Branch'=>'Branch']);
+        return view('branches.create')->with('branchType',['Branch'=>'Branch','Branch'=>'Branch']);
     }
 
     /**
@@ -100,7 +114,7 @@ class BranchesController extends AppBaseController
             return redirect(route('branches.index'));
         }
 
-        return view('branches.edit')->with('branches', $branches)->with('branchType',['Main_branch'=>'Main_branch','Main_branch'=>'Main_branch','Warehouse'=>'Warehouse','Warehouse'=>'Warehouse','Branch'=>'Branch','Branch'=>'Branch']);
+        return view('branches.edit')->with('branches', $branches)->with('branchType',['Branch'=>'Branch','Branch'=>'Branch']);
     }
 
     /**
