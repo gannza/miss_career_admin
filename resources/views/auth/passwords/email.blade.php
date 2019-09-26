@@ -27,7 +27,8 @@
 	            <div class="col-xs-12">
 	                <div class="login-panel panel panel-default">
 	                    <div class="panel-heading mb-15 py">
-	                    	<h3 class="mb-0"><a href="{{ url('/home') }}"><b>  PASSWORD RECOVERY </b></a></h3>
+							<h3 class="mb-0"><a href="{{ url('/home') }}"><b>  PASSWORD RECOVERY </b></a>
+						</h3>
                         </div>
                         <p class="alert-info text-center">Enter Email to reset password</p>
 	                    <div class="panel-body">
